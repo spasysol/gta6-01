@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>SOLMAR — Sunset Streets</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #1a0f2e; }
+  #game { display: block; width: 100vw; height: 100vh; image-rendering: auto; cursor: crosshair; }
+  .overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; color: #ffe9c9; font-family: 'Trebuchet MS', Verdana, sans-serif;
+    background: linear-gradient(180deg, rgba(26,15,46,.82) 0%, rgba(64,16,64,.78) 55%, rgba(255,110,64,.55) 100%);
+    z-index: 10; }
+  .overlay.hidden { display: none; }
+  .logo { font-size: 64px; font-weight: 900; letter-spacing: 10px; color: #ffd166;
+    text-shadow: 0 4px 0 #e4572e, 0 8px 24px rgba(0,0,0,.7); margin: 0; }
+  .tagline { font-size: 20px; letter-spacing: 6px; color: #ff9e7d; margin: 6px 0 22px; }
+  .story { max-width: 560px; font-size: 15px; line-height: 1.55; color: #ffe9c9; margin: 0 20px 22px; }
+  .menu-btn { display: block; width: 280px; margin: 8px auto; padding: 13px 0; font-size: 17px; font-weight: 700;
+    letter-spacing: 2px; color: #2b0a3d; background: #ffd166; border: none; border-radius: 6px; cursor: pointer; }
+  .menu-btn:hover { background: #ffca3a; }
+  .menu-btn.secondary { background: transparent; color: #ffd166; border: 2px solid #ffd166; }
+  .controls { font-size: 13px; line-height: 1.8; color: #f7d6b0; margin-top: 18px; }
+  .controls b { color: #ffd166; }
+  .small { font-size: 12px; color: #c9a6c9; margin-top: 14px; }
+  #toast { position: fixed; left: 50%; top: 84px; transform: translateX(-50%); z-index: 5;
+    font-family: 'Trebuchet MS', Verdana, sans-serif; font-size: 15px; color: #fff; background: rgba(20,8,32,.8);
+    border: 1px solid #ffd166; border-radius: 6px; padding: 8px 16px; display: none; pointer-events: none; }
+</style>
+</head>
+<body>
+<canvas id="game" width="1280" height="720"></canvas>
+<div id="toast"></div>
+
+<div id="menu" class="overlay">
+  <h1 class="logo">SOLMAR</h1>
+  <div class="tagline">SUNSET STREETS</div>
+  <p class="story">You are Rook Marlow, back in Solmar after five years away. The city never
+    forgets a debt — and Mara Voss, the fixer who runs the Sunset Strip, has a list of jobs
+    with your name on it. Steal cars, outrun the Solmar PD, settle scores with the Vultures,
+    and pull the one job that buys your way out for good.</p>
+  <button class="menu-btn" id="btn-new">NEW GAME</button>
+  <button class="menu-btn secondary" id="btn-continue">CONTINUE</button>
+  <div class="controls">
+    <b>WASD / Arrows</b> move &amp; drive &nbsp;·&nbsp; <b>E</b> enter / exit car &nbsp;·&nbsp;
+    <b>Mouse</b> aim &nbsp;·&nbsp; <b>Click</b> shoot &nbsp;·&nbsp; <b>Space</b> handbrake<br>
+    <b>Shift</b> sprint &nbsp;·&nbsp; <b>M</b> next job &nbsp;·&nbsp; <b>P</b> pause &nbsp;·&nbsp; <b>N</b> mute &nbsp;·&nbsp; <b>H</b> horn
+  </div>
+  <div class="small">An original open-world crime game. No network needed — everything runs from these files.</div>
+</div>
+
+<div id="pause" class="overlay hidden">
+  <h1 class="logo" style="font-size:42px">PAUSED</h1>
+  <p class="story">Take a breath, Rook. The city will wait.</p>
+  <button class="menu-btn" id="btn-resume">RESUME</button>
+  <button class="menu-btn secondary" id="btn-quit">SAVE &amp; QUIT TO MENU</button>
+  <div class="controls"><b>P</b> resume &nbsp;·&nbsp; <b>N</b> mute</div>
+</div>
+
+<div id="over" class="overlay hidden">
+  <h1 class="logo" style="font-size:44px" id="over-title">WASTED</h1>
+  <p class="story" id="over-text"></p>
+  <button class="menu-btn" id="btn-retry">TRY AGAIN</button>
+  <button class="menu-btn secondary" id="btn-over-menu">MAIN MENU</button>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
